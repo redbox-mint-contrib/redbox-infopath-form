@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dset="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
+	xmlns:dc="http://purl.org/dc/terms/" version="0.1">
+
+
+	<xsd:import schemaLocation="http://purl.org/dc/terms/dublin_core.xsd" />
+	<xsd:complexType name="PersonIdentifier">
+		<xsd:sequence>
+			<xsd:element name="identifier" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="type" maxOccurs="1" minOccurs="1" />
+
+						<xsd:element name="value" maxOccurs="1" minOccurs="1">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="local" />
+
+									<xsd:enumeration value="orcid" />
+
+									<xsd:enumeration value="uri" />
+
+									<xsd:enumeration value="AU-ANL:PEAU" />
+
+									<xsd:enumeration value="handle" />
+
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Person">
+		<xsd:all>
+			<xsd:element name="identifiers" type="dset:PersonIdentifier" />
+			<xsd:element name="honorificPrefix" type="xsd:string" />
+			<xsd:element name="givenName" type="xsd:string" />
+			<xsd:element name="familyName" type="xsd:string" />
+			<xsd:element name="mbox" type="xsd:string" />
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

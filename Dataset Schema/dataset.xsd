@@ -1,129 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://www.redboxresearchdata.com.au/schema/dataset"
-	xmlns:dset="http://www.redboxresearchdata.com.au/schema/dataset"
-	xmlns:dc="http://purl.org/dc/terms/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:rif="http://ands.org.au/standards/rif-cs/registryObjects">
+<xsd:schema targetNamespace="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dset="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
+	xmlns:dc="http://purl.org/dc/terms/" version="0.1">
+	
+	
+	<xsd:import
+		schemaLocation="http://purl.org/dc/terms/dublin_core.xsd" />
 
-    <xsd:import namespace="http://purl.org/dc/terms/"
-		schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"></xsd:import>
-	<xsd:import namespace="http://ands.org.au/standards/rif-cs/registryObjects"
-		schemaLocation="http://services.ands.org.au/documentation/rifcs/1.4/schema/registryObjects.xsd"></xsd:import>
-
-	<xsd:complexType name="Person">
-		<xsd:all>
-			<xsd:element ref="dc:identifier" type="dset:PersonIdentifier"></xsd:element>
-			<xsd:element name="honorificPrefix" type="xsd:string"></xsd:element>
-			<xsd:element name="givenName" type="xsd:string"></xsd:element>
-			<xsd:element name="familyName" type="xsd:string"></xsd:element>
-			<xsd:element name="mbox" type="xsd:string"></xsd:element>
-			
-		</xsd:all>
-
-	</xsd:complexType>
-
-	<xsd:complexType name="DatasetIdentifier">
-        <xsd:all>
-			<xsd:element ref="dc:type" maxOccurs="1" minOccurs="1">
-			</xsd:element>
-			<xsd:element name="value" maxOccurs="1" minOccurs="1">
-				<xsd:simpleType>
-					<xsd:restriction base="xsd:string">
-						<xsd:enumeration value="local"></xsd:enumeration>
-						<xsd:enumeration value="orcid"></xsd:enumeration>
-						<xsd:enumeration value="uri"></xsd:enumeration>
-						<xsd:enumeration value="AU-ANL:PEAU"></xsd:enumeration>
-						<xsd:enumeration value="handle"></xsd:enumeration>
-					</xsd:restriction>
-				</xsd:simpleType>
-			</xsd:element>
-		</xsd:all>
-	</xsd:complexType>
-
-	<xsd:complexType name="PersonIdentifier">
-        <xsd:all>
-			<xsd:element ref="dc:type" maxOccurs="1" minOccurs="1">
-			</xsd:element>
-			<xsd:element name="value" maxOccurs="1" minOccurs="1"
-				type="dset:PersonIdentifierType">
-			</xsd:element>
-		</xsd:all>
-	</xsd:complexType>
-
-	<xsd:simpleType name="PersonIdentifierType">
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="local"></xsd:enumeration>
-			<xsd:enumeration value="orcid"></xsd:enumeration>
-			<xsd:enumeration value="uri"></xsd:enumeration>
-			<xsd:enumeration value="AU-ANL:PEAU"></xsd:enumeration>
-			<xsd:enumeration value="handle"></xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
-
-	<xsd:group name="dataset">
-		<xsd:all>
-			<xsd:element ref="dc:title" maxOccurs="1" minOccurs="1"></xsd:element>
-			<xsd:element ref="dc:type" maxOccurs="1" minOccurs="1">
-				<xsd:simpleType>
-					<xsd:restriction base="xsd:string">
-						<xsd:enumeration value="catalogueOrIndex"></xsd:enumeration>
-						<xsd:enumeration value="collection"></xsd:enumeration>
-						<xsd:enumeration value="registry"></xsd:enumeration>
-						<xsd:enumeration value="repository"></xsd:enumeration>
-						<xsd:enumeration value="dataset"></xsd:enumeration>
-					</xsd:restriction>
-				</xsd:simpleType>
-			</xsd:element>
-			<xsd:element ref="dc:description" maxOccurs="1"
-				minOccurs="1">
-			</xsd:element>
-			<xsd:element ref="dc:created" maxOccurs="1" minOccurs="1"></xsd:element>
-			<xsd:element ref="dc:language" maxOccurs="1"
-				minOccurs="0">
-			</xsd:element>
-			<xsd:element ref="dc:modified" maxOccurs="1"
-				minOccurs="0">
-			</xsd:element>
-			<xsd:element ref="dc:creator" maxOccurs="unbounded"
-				minOccurs="1" type="dset:Person">
-			</xsd:element>
-			<xsd:element ref="dc:mediator" maxOccurs="1" minOccurs="1"
-				type="dset:Person">
-			</xsd:element>
-			<xsd:element ref="dc:rights" maxOccurs="1" minOccurs="0"></xsd:element>
-			<xsd:element ref="dc:rightsHolder" maxOccurs="1"
-				minOccurs="0">
-			</xsd:element>
-			<xsd:element ref="dc:license" maxOccurs="1" minOccurs="0"></xsd:element>
-			<xsd:element ref="dc:accessRights" maxOccurs="1"
-				minOccurs="0">
-			</xsd:element>
-			<xsd:element ref="dc:extent" maxOccurs="1" minOccurs="0"></xsd:element>
-			<xsd:element ref="dc:coverage" maxOccurs="unbounded"
-				minOccurs="0">
-			</xsd:element>
-			<xsd:element ref="dc:available" maxOccurs="1"
-				minOccurs="0">
-			</xsd:element>
-			<xsd:element ref="dc:source"></xsd:element>
-		</xsd:all>
-	</xsd:group>
-
+	<xsd:include schemaLocation="agent.xsd"></xsd:include>
 
 	<xsd:complexType name="DateRange">
 		<xsd:sequence>
-			<xsd:element name="start" type="xsd:date"></xsd:element>
-			<xsd:element name="end" type="xsd:date"></xsd:element>
+			<xsd:element name="start" type="xsd:date" />
+			<xsd:element name="end" type="xsd:date" />
 		</xsd:sequence>
 	</xsd:complexType>
 
-
-	<xsd:complexType name="sourceType">
+	<xsd:complexType name="SourceType">
 		<xsd:sequence>
-			<xsd:element ref="dc:identifier" maxOccurs="1"
-				minOccurs="1">
-			</xsd:element>
-			<xsd:element name="originatingSource" type="xsd:string"></xsd:element>
+			<xsd:element ref="dc:identifier" maxOccurs="1" minOccurs="1" />
+
+			<xsd:element name="originatingSource" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
+
+	<xsd:complexType name="Header">
+		<xsd:all>
+			<xsd:element name="created" type="xsd:dateTime" maxOccurs="1"
+				minOccurs="1" />
+
+			<xsd:element name="modified" type="xsd:dateTime" maxOccurs="1"
+				minOccurs="0" />
+
+			<xsd:element name="source" type="dset:SourceType" maxOccurs="1"
+				minOccurs="1" />
+
+			<xsd:element name="identifier" maxOccurs="1" minOccurs="1"
+				type="xsd:string" />
+
+		</xsd:all>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="Dataset">
+		<xsd:all>
+			<xsd:element name="header" type="dset:Header" />
+			<xsd:element name="identifier">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="type" maxOccurs="1"
+							minOccurs="1">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="local" />
+									<xsd:enumeration value="orcid" />
+									<xsd:enumeration value="uri" />
+									<xsd:enumeration
+										value="AU-ANL:PEAU" />
+
+									<xsd:enumeration value="handle" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="value" maxOccurs="1"
+							minOccurs="1" type="xsd:string" />
+
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element ref="dc:title" maxOccurs="1" minOccurs="1" />
+
+			<xsd:element name="location" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+
+			<xsd:element ref="dc:type" maxOccurs="1" minOccurs="1" />
+
+			<xsd:element ref="dc:description" maxOccurs="1"
+				minOccurs="1" />
+
+			<xsd:element name="created" maxOccurs="1" minOccurs="1"
+				type="xsd:dateTime" />
+
+			<xsd:element name="modified" maxOccurs="1" minOccurs="0"
+				type="xsd:dateTime" />
+
+			<xsd:element ref="dc:language" maxOccurs="1" minOccurs="0" />
+
+			<xsd:element ref="dc:rights" maxOccurs="1" minOccurs="0" />
+
+			<xsd:element ref="dc:rightsHolder" maxOccurs="1"
+				minOccurs="0" />
+
+			<xsd:element ref="dc:license" maxOccurs="1" minOccurs="0" />
+
+			<xsd:element ref="dc:accessRights" maxOccurs="1"
+				minOccurs="0" />
+
+			<xsd:element ref="dc:extent" maxOccurs="1" minOccurs="0" />
+
+
+			<xsd:element name="available" maxOccurs="1" minOccurs="0"
+				type="xsd:date" />
+
+
+			<xsd:element name="coverage" maxOccurs="1" minOccurs="0" />
+
+
+			<xsd:element name="mediator" type="dset:Person"
+				maxOccurs="1" minOccurs="0" />
+
+			<xsd:element name="creators" maxOccurs="1" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="person" minOccurs="0"
+							maxOccurs="unbounded" type="dset:Person" />
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element ref="dset:dataset"></xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+
+
+	<xsd:element name="dataset" type="dset:Dataset" />
+
+	
+
+
+
 
 </xsd:schema>
