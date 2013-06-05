@@ -1,83 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
+<xsd:schema
+	targetNamespace="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dset="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
-	xmlns:dc="http://purl.org/dc/terms/" version="0.1">
-	
-	
-	<xsd:import
-		schemaLocation="http://purl.org/dc/terms/dublin_core.xsd" />
+	version="0.1">
 
-	<xsd:include schemaLocation="agent.xsd"></xsd:include>
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			Basic schema for
+			exchanging research dataset descriptions.
+		</xsd:documentation>
+	</xsd:annotation>
 
-	<xsd:complexType name="DateRange">
-		<xsd:sequence>
-			<xsd:element name="start" type="xsd:date" />
-			<xsd:element name="end" type="xsd:date" />
-		</xsd:sequence>
+	<xsd:complexType name="Identifier">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="type" type="xsd:string" use="required" />
+			</xsd:extension>
+		</xsd:simpleContent>
+
 	</xsd:complexType>
 
-	<xsd:complexType name="SourceType">
-		<xsd:sequence>
-			<xsd:element ref="dc:identifier" maxOccurs="1" minOccurs="1" />
+	<xsd:complexType name="Person">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Describes an
+				individual. Allows for multiple identifiers.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="identifiers" maxOccurs="1" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="identifier" type="dset:Identifier"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="honorificPrefix" type="xsd:string"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="givenName" type="xsd:string"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="familyName" type="xsd:string"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="email" type="xsd:string" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element name="organisation" type="xsd:string" maxOccurs="1"
+				minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
 
-			<xsd:element name="originatingSource" type="xsd:string" />
+	<xsd:group name="StartEnd">
+		<xsd:sequence>
+			<xsd:element name="start" type="xsd:dateTime" />
+			<xsd:element name="end" type="xsd:dateTime" />
 		</xsd:sequence>
+	</xsd:group>
+
+	<xsd:complexType name="TemporalCoverage">
+		<xsd:choice>
+			<xsd:group ref="dset:StartEnd" />
+			<xsd:element name="coverage" />
+		</xsd:choice>
+
 	</xsd:complexType>
 
 	<xsd:complexType name="Header">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Used to describe the
+				record's provenance rather than the subject of the
+				record.
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:all>
-			<xsd:element name="created" type="xsd:dateTime" maxOccurs="1"
-				minOccurs="1" />
+			<xsd:element name="created" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="1" />
 
-			<xsd:element name="modified" type="xsd:dateTime" maxOccurs="1"
-				minOccurs="0" />
-
-			<xsd:element name="source" type="dset:SourceType" maxOccurs="1"
-				minOccurs="1" />
+			<xsd:element name="modified" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="0" />
 
 			<xsd:element name="identifier" maxOccurs="1" minOccurs="1"
-				type="xsd:string" />
+				type="dset:Identifier" />
+
+			<xsd:element name="originatingSource" type="xsd:string"
+				maxOccurs="1" minOccurs="1" />
 
 		</xsd:all>
 	</xsd:complexType>
 
 
-	<xsd:complexType name="Dataset">
+	<xsd:complexType name="Record">
 		<xsd:all>
 			<xsd:element name="header" type="dset:Header" />
-			<xsd:element name="identifier">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="type" maxOccurs="1"
-							minOccurs="1">
-							<xsd:simpleType>
-								<xsd:restriction base="xsd:string">
-									<xsd:enumeration value="local" />
-									<xsd:enumeration value="orcid" />
-									<xsd:enumeration value="uri" />
-									<xsd:enumeration
-										value="AU-ANL:PEAU" />
+			<xsd:element name="identifier" type="dset:Identifier" />
 
-									<xsd:enumeration value="handle" />
-								</xsd:restriction>
-							</xsd:simpleType>
-						</xsd:element>
-						<xsd:element name="value" maxOccurs="1"
-							minOccurs="1" type="xsd:string" />
-
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element ref="dc:title" maxOccurs="1" minOccurs="1" />
+			<xsd:element name="title" maxOccurs="1" minOccurs="1"
+				type="xsd:string" />
 
 			<xsd:element name="location" maxOccurs="1" minOccurs="0"
 				type="xsd:string" />
 
-			<xsd:element ref="dc:type" maxOccurs="1" minOccurs="1" />
+			<xsd:element name="type" maxOccurs="1" minOccurs="1"
+				type="xsd:string" />
 
-			<xsd:element ref="dc:description" maxOccurs="1"
-				minOccurs="1" />
+			<xsd:element name="description" maxOccurs="1" minOccurs="1"
+				type="xsd:string" />
 
 			<xsd:element name="created" maxOccurs="1" minOccurs="1"
 				type="xsd:dateTime" />
@@ -85,27 +111,33 @@
 			<xsd:element name="modified" maxOccurs="1" minOccurs="0"
 				type="xsd:dateTime" />
 
-			<xsd:element ref="dc:language" maxOccurs="1" minOccurs="0" />
+			<xsd:element name="language" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
 
-			<xsd:element ref="dc:rights" maxOccurs="1" minOccurs="0" />
+			<xsd:element name="rights" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
 
-			<xsd:element ref="dc:rightsHolder" maxOccurs="1"
-				minOccurs="0" />
+			<xsd:element name="rightsHolder" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
 
-			<xsd:element ref="dc:license" maxOccurs="1" minOccurs="0" />
+			<xsd:element name="license" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
 
-			<xsd:element ref="dc:accessRights" maxOccurs="1"
-				minOccurs="0" />
+			<xsd:element name="accessRights" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
 
-			<xsd:element ref="dc:extent" maxOccurs="1" minOccurs="0" />
+			<xsd:element name="extent" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
 
 
 			<xsd:element name="available" maxOccurs="1" minOccurs="0"
-				type="xsd:date" />
+				type="xsd:dateTime" />
 
 
-			<xsd:element name="coverage" maxOccurs="1" minOccurs="0" />
+			<xsd:element name="temporal" maxOccurs="1" minOccurs="0"
+				type="dset:TemporalCoverage" />
 
+			<xsd:element name="spatial" maxOccurs="1" minOccurs="0" />
 
 			<xsd:element name="mediator" type="dset:Person"
 				maxOccurs="1" minOccurs="0" />
@@ -113,23 +145,15 @@
 			<xsd:element name="creators" maxOccurs="1" minOccurs="0">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="person" minOccurs="0"
-							maxOccurs="unbounded" type="dset:Person" />
+						<xsd:element name="creator" minOccurs="0" maxOccurs="unbounded"
+							type="dset:Person" />
 
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 
-			<xsd:element ref="dset:dataset"></xsd:element>
+
 		</xsd:all>
 	</xsd:complexType>
-
-
-	<xsd:element name="dataset" type="dset:Dataset" />
-
-	
-
-
-
-
+	<xsd:element name="record" type="dset:Record" />
 </xsd:schema>

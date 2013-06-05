@@ -1,43 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dset:dataset xmlns:dset="http://www.redboxresearchdata.com.au/schema/dataset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.redboxresearchdata.com.au/schema/dataset dataset.xsd ">
-  <header>
-    <created>2001-12-31T12:00:00</created>
-    <modified>2001-12-31T12:00:00</modified>
-    <source>source</source>
-    <identifier>identifier</identifier>
-  </header>
-  <identifier>
-    <type>local</type>
-    <value>value</value>
-  </identifier>
-  <title>title</title>
-  <location>location</location>
-  <type>type</type>
-  <description>description</description>
-  <created>2001-12-31T12:00:00</created>
-  <modified>2001-12-31T12:00:00</modified>
-  <language>language</language>
-  <rights>rights</rights>
-  <rightsHolder>rightsHolder</rightsHolder>
-  <license>license</license>
-  <accessRights>accessRights</accessRights>
-  <extent>extent</extent>
-  <available>2001-01-01</available>
-  <coverage xsi:type="anyType"/>
-  <mediator>
-    <identifiers/>
-    <honorificPrefix>honorificPrefix</honorificPrefix>
-    <givenName>givenName</givenName>
-    <familyName>familyName</familyName>
-    <mbox>mbox</mbox>
-  </mediator>
-  <creators>
-    <person>
-      <identifiers/>
-      <honorificPrefix>honorificPrefix</honorificPrefix>
-      <givenName>givenName</givenName>
-      <familyName>familyName</familyName>
-      <mbox>mbox</mbox>
-    </person>
-  </creators>
-</dset:dataset>
+<dset:record
+	xmlns:dset="http://www.redboxresearchdata.com.au/schema/dataset-simple/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.redboxresearchdata.com.au/schema/dataset-simple/ dataset.xsd ">
+	<header>
+		<identifier type="uri">http://metadata.example.com/1234
+		</identifier>
+		<originatingSource>My DC System</originatingSource>
+		<created>2001-12-31T12:00:00</created>
+		<modified>2001-12-31T12:00:00</modified>
+	</header>
+	<identifier type="uri">http://data.example.com/8365</identifier>
+	<title>A sample dataset</title>
+	<location>http://datastore.example.com/48576</location>
+	<type>dataset</type>
+	<description>This is a sample record</description>
+	<created>2001-12-31T12:00:00</created>
+	<modified>2001-12-31T12:00:00</modified>
+	<language>en</language>
+	<rights>Copyright 2013, Fred Nurk</rights>
+	<rightsHolder>Fred Nurk</rightsHolder>
+	<license>CC-BY-AU</license>
+	<accessRights>Free public access</accessRights>
+	<available>2001-12-31T12:00:00</available>
+	<extent>2Tb</extent>
+	
+	<temporal>
+		<start>2001-12-31T12:00:00</start>
+		<end>2001-12-31T12:00:00</end>
+	</temporal>
+	
+	<spatial>Brisbane</spatial>
+	
+	<mediator>
+		<givenName>Duncan</givenName>
+		<familyName>Dickinson</familyName>
+		<email>d.dickinson@qcif.edu.au</email>
+	</mediator>
+	<creators>
+		<creator>
+			<identifiers>
+				<identifier type="url">http://duncan.dickinson.name</identifier>
+			</identifiers>
+			<honorificPrefix>Mr</honorificPrefix>
+			<givenName>Duncan</givenName>
+			<familyName>Dickinson</familyName>
+			<email>d.dickinson@qcif.edu.au</email>
+			<organisation>QCIF</organisation>
+		</creator>
+		<creator>
+			<identifiers>
+				<identifier type="url">http://people.example.com/48575</identifier>
+			</identifiers>
+			<honorificPrefix>Dr</honorificPrefix>
+			<givenName>Fred</givenName>
+			<familyName>Nurk</familyName>
+			<email>nurk@example.com</email>
+			<organisation>Nurk Pty Ltd</organisation>
+		</creator>
+	</creators>
+</dset:record>
